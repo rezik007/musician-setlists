@@ -1,5 +1,8 @@
 module.exports = {
-  extends: ["next", "prettier"],
+  extends: ['next', 'airbnb', 'airbnb-typescript'],
+  parserOptions: {
+    project: 'tsconfig.json',
+  },
   settings: {
     next: {
       rootDir: ["apps/*/", "packages/*/"],
@@ -7,5 +10,6 @@ module.exports = {
   },
   rules: {
     "@next/next/no-html-link-for-pages": "off",
+    "react/react-in-jsx-scope": "off"
   },
 };
