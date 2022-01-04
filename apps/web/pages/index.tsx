@@ -12,16 +12,16 @@ import DraftsIcon from '@mui/icons-material/Drafts';
 import FirebaseContext from '../config/fire-config';
 
 export default function Web() {
-    const [todos,setTodos] = useState([]);
-  const [loading,   setLoading] =   useState<boolean>(true);
+  const [todos, setTodos] = useState([]);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     FirebaseContext
       .collection('setlists')
-      .onSnapshot(snap => {
-        const blogs = snap.docs.map(doc => ({
-          id:   doc.id,
-          ...doc.data()
+      .onSnapshot((snap) => {
+        const blogs = snap.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
         }));
         setTodos(blogs);
       });
