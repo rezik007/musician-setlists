@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "main": "./App.tsx",
   "scripts": {
-    "dev": "yarn run android",
+    "dev": "yarn run android && yarn run dev:tailwind",
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject"
+    "eject": "expo eject",
+    "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
+    "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
   },
   "dependencies": {
     "expo": "~44.0.0",
@@ -18,12 +20,15 @@
     "react-native": "0.64.3",
     "react-native-paper": "^4.11.1",
     "react-native-vector-icons": "^9.0.0",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "tailwind-rn": "^4.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
+    "concurrently": "^7.0.0",
+    "tailwindcss": "^3.0.13",
     "typescript": "~4.3.5"
   },
   "private": true

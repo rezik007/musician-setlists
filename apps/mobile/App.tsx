@@ -1,23 +1,21 @@
 import { registerRootComponent } from 'expo';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { TailwindProvider, useTailwind } from 'tailwind-rn';
+import { Text } from 'react-native';
+import utilities from './tailwind.json';
 
-const App = function() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start pppp on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+function MyComponent() {
+  const tailwind = useTailwind();
+
+  return <Text style={tailwind('text-blue-600')}>Hello world</Text>;
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
 
-export default registerRootComponent(App)
+const App = function () {
+  return (
+    <TailwindProvider utilities={utilities}>
+      <MyComponent />
+    </TailwindProvider>
+  );
+};
+
+export default registerRootComponent(App);
