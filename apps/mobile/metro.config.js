@@ -1,4 +1,4 @@
-var path = require("path");
+const path = require("path");
 const projectRoot = __dirname;
 const workspaceRoot = path.resolve(__dirname, '../..');
 
@@ -11,6 +11,7 @@ module.exports = {
   },
   watchFolders: [
     path.resolve(__dirname, '../../node_modules'),
+    path.resolve(__dirname, '../../packages'),
   ],
   resetCache: true,
 };

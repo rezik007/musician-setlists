@@ -8,8 +8,9 @@
   ],
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev --parallel",
+    "dev": "turbo run dev --parallel --no-cache",
     "lint": "turbo run lint",
+    "killPort": "sudo kill $(sudo lsof -t -i:3001)",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {

@@ -1,0 +1,15 @@
+{
+  "name": "firebase-connector",
+  "version": "0.0.0",
+  "main": "index.ts",
+  "types": "index.ts",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^7.15.5"
+  },
+  "devDependencies": {
+    "tsconfig": "*",
+    "config": "*",
+    "typescript": "^4.5.3"
+  }
+}
