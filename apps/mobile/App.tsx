@@ -1,23 +1,22 @@
 import { registerRootComponent } from 'expo';
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import Setlists from './src/Screens/Setlists';
 
-const App = function() {
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: 'tomato',
+    accent: 'yellow',
+  },
+};
+
+function App(): JSX.Element {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start pppp on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={theme}>
+      <Setlists />
+    </PaperProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
-
-export default registerRootComponent(App)
+export default registerRootComponent(App);
