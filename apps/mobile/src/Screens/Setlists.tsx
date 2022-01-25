@@ -1,29 +1,48 @@
 import { useState, useEffect } from 'react';
-import { Appbar, List, Button } from 'react-native-paper';
+import { Appbar, List, Button, TextInput } from 'react-native-paper';
 import FirebaseContext from 'firebase-connector';
 
 export default function () {
-
-  const [todos, setTodos] = useState([]);
+  const [setlists, setSetlists] = useState([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [inputValue, setInputValue] = useState('');
 
-
-
-
-  useEffect(() => {
+  const fetchSetlists = () => {
     FirebaseContext
       .collection('setlists')
       .onSnapshot((snap) => {
-        const blogs = snap.docs.map((doc) => ({
+        const setlists = snap.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         }));
-        setTodos(blogs);
+        setSetlists(setlists);
         setLoading(false);
       });
+  }
+  const addSetlist = async () => {
+    FirebaseContext.collection('setlists').doc().set({
+      name: inputValue,
+      description: 'opa',   
+    }).then(() => {
+      fetchSetlists();
+    });
+  }
+
+  const removeSetlist = (id) => {
+    console.log('ID', id);
+    FirebaseContext.collection('setlists').doc(id).delete().then(() => {
+      fetchSetlists();
+    }).catch((err) => console.log('err', err))
+  };
+
+
+  useEffect(() => {
+    fetchSetlists();
   }, []);
 
   if (loading) return null;
+
+  console.log(setlists)
 
   return (
     <>
@@ -32,13 +51,20 @@ export default function () {
         {/* <Appbar.Action icon="pen" color="white" onPress={() => {}}/> */}
         <Appbar.Action icon={require('../../assets/favicon.png')} color="white" onPress={() => { } } />
       </Appbar.Header>
-      {todos.map(todo => (
+      {setlists.map(setlist => (
         <List.Item
-          title={todo.name}
-          description={todo.description}
-          left={props => <List.Icon {...props} icon="folder" />} />
+          key={setlist.id}
+          title={setlist.name}
+          description={setlist.description}
+          onPress={() => removeSetlist(setlist.id)}
+        />
       ))}
-      <Button onPress={() => { } }>
+        <TextInput
+          label="Name"
+          value={inputValue}
+          onChangeText={text => setInputValue(text)}
+        />
+      <Button onPress={addSetlist}>
         Add new setlist
       </Button>
     </>
